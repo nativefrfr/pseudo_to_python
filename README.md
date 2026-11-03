@@ -16,6 +16,7 @@ python convert.py examples/example.pseudo outputfile.py
 | `examples/`             | example files to test                            |
 | `lines.py`              | the list of lines it compares and replaces with  |
 | `converted/`            | where the convered files end up afer run         |
+| `generate_chain.py/`    | used to make lines.py into the big chunk in `convert.py` without typing allat        |
 
 ## How it works
 
