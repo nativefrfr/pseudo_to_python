@@ -1,0 +1,47 @@
+OUTPUT "Boiling Water and add to Mug"
+OUTPUT "1. Tea 2. Coffee 3. Hot Choc"
+
+Drink ← USERINPUT
+IF Drink = 1 THEN
+    OUTPUT "Add Teabag to mug"
+ELSE IF Drink = 2 THEN
+    OUTPUT "Add Coffee Granules to mug"
+ELSE IF Drink = 3 THEN
+    OUTPUT "Add Hot Chocolate powder to mug"
+ENDIF
+
+Sugar_Count <- 0
+OUTPUT "Do you want Sugar ?"
+sugar <- USERINPUT
+
+WHILE sugar = "yes" AND Sugar_Count < 3 DO
+    OUTPUT "Add Sugar to mug"
+    Sugar_Count <- Sugar_Count + 1
+    IF Sugar_Count >= 3 THEN
+        // Skip further prompt if maximum reached
+    ELSE
+        OUTPUT "Do you want another Sugar ?"
+        sugar <- USERINPUT
+    ENDIF
+ENDWHILE
+
+Milk_Count <- 0
+OUTPUT "Do you want Milk?"
+Milk <- USERINPUT
+
+WHILE Milk = "yes" AND Milk_Count < 3 DO
+    OUTPUT "Add Milk to mug"
+    Milk_Count <- Milk_Count + 1
+    IF Milk_Count >= 3 THEN
+        // Skip further prompt if maximum reached
+    ELSE
+        OUTPUT "Do you want another Milk shot?"
+        Milk <- USERINPUT
+    ENDIF
+ENDWHILE
+
+IF Drink = 1 THEN
+    OUTPUT "Remove Teabag"
+ENDIF
+
+OUTPUT "Stir Mug"

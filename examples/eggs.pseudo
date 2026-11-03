@@ -1,0 +1,6 @@
+Eggs ← USERINPUT How many eggs are you using
+WHILE 8 < eggs < 0  THEN
+OUTPUT invalid amount of eggs 
+Eggs ← USERINPUT How many eggs are you using
+ENDWHILE
+OUTPUT valid amount of eggs

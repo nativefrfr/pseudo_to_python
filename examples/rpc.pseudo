@@ -1,0 +1,20 @@
+options ← ["paper", "rock", "scissors"]
+player1 ← USERINPUT
+player2 ← USERINPUT
+player1HasWon ← false
+draw ← false
+IF player1 = 1 THEN
+    IF player2 = 2 THEN
+        player1HasWon ← true
+    ENDIF
+ENDIF
+IF player1 = 2 THEN
+    IF player2 = 3 THEN
+        player1HasWon ← true
+    ENDIF
+ENDIF
+IF player1 = 3 THEN
+    IF player2 = 1 THEN
+        player1HasWon ← true
+    ENDIF
+ENDIF
