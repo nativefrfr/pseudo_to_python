@@ -71,9 +71,6 @@ def convert(all_lines):
         newfile += translate_line(line) + "\n"
 
 
-def main():
-    pass
-
 def parsedatafromfile():
     global length,lineamt
     length = len(wholefile)
@@ -84,8 +81,6 @@ def writefinish():
     with open(f"converted/{newfilename}","w",encoding="utf-8") as f:
         f.write(newfile)
 
-if __name__ == "__main__":
-    main()
 loadfile()
 parsedatafromfile()
 print(f"length: {length}")
