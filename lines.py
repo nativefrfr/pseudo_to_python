@@ -11,7 +11,7 @@ PYINPUT = "input()" #if pseudo has no text afterwards
 PSEQUALTO = "="
 PYEQUALTO = "=="
 
-PSEQUALS = ["<--","←"," <-"]
+PSEQUALS = ["<--","←"," <-","⟵"]
 PYEQUALS = "="
 
 #loops and stuff
@@ -42,6 +42,8 @@ PYELSE = "else:"
 
 PSREPEAT = "REPEAT"
 PYREPEAT = "while not"
+PSUNTIL = "UNTIL"
+# py not needed because there is a special edge case
 
 PSTHEN = ["THEN","DO"]
 PYTHEN = ":"
@@ -53,10 +55,10 @@ PYCOMMENT = "#"
 
 #error handling these are not correct. its to fix errors like >== and !==
 
-PSGREATEQUAL = ">=="
+PSGREATEQUAL = [">==","≥"]
 PYGREATEQUAL = ">="
 
-PSLESSEQUAL = "<=="
+PSLESSEQUAL = ["<==","≤"]
 PYLESSEQUAL = "<="
 
 PSNOTQUAL = "!=="
@@ -67,6 +69,12 @@ PYPLUSEQUAL = "+="
 
 PSMINUSEQUAL = "-=="
 PYMINUSEQUAL = "-="
+
+PSQUOTEMARK = ["‘","’"]
+PYQUOTEMARK = "\""
+
+PSMINUS = "–"
+PYMINUS = "-"
 
 #AND OR
 
@@ -97,3 +105,8 @@ PYSTR = "str" #this will need brackets manually added
 
 PSINT = "STRING_TO_INT"
 PYINT = "int" #this MAY need brackets manually added
+
+# vars
+
+PSCONSTANT = ["constant ","CONSTANT "]
+PYCONSTANT = ""

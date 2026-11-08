@@ -1,9 +1,13 @@
 import sys
-import pseudo_to_python.lines as lines
+import lines as lines
 import os
 
 filepath = sys.argv[1]
 newfilename = sys.argv[2]
+if "--debug" in sys.argv:
+    debug = True
+else:
+    debug = False
 newfile = ""
 def loadfile():
     global wholefile,all_lines
@@ -17,14 +21,37 @@ def translate_word(psword,pyword,line):
     if type(psword) == list:
         for word in psword:
             newline = newline.replace(word,pyword)
+            if debug:
+                if line != newline:
+                    print(f"({word})  to  ({pyword})")
     else:
         newline = newline.replace(psword,pyword)
+        if debug:
+            if line != newline:
+                print(f"({pyword})  to  ({pyword})")
     return newline
 
+def checkrepeat(newline):
+    if (lines.PSREPEAT not in wholefile) and (lines.PSUNTIL not in wholefile):
+        return newline
+    elif (lines.PSREPEAT in wholefile) and (lines.PSUNTIL not in wholefile):
+        newline += "# Repeat expected Until statement but wasnt found."
+        return newline
+    elif (lines.PSREPEAT in wholefile) and (lines.PSUNTIL in wholefile):
+        if (lines.PSREPEAT in newline):
+            for theline in all_lines[currentlineindex:lineamt]:
+                if lines.PSUNTIL in theline:
+                    thenewline = theline.replace(lines.PSUNTIL,"")
+                    if lines.PSREPEAT in newline:
+                        newline += thenewline + ":"
+                    break
+        return newline
 
 
 def translate_line(line):
     result = ""
+    if lines.PSUNTIL in line:
+        return ""
     newline = translate_word(lines.PSPRINT,lines.PYPRINT,line)
     newline = translate_word(lines.PSINPUT,lines.PYINPUT,newline)
     newline = translate_word(lines.PSEQUALTO,lines.PYEQUALTO,newline)
@@ -37,6 +64,7 @@ def translate_line(line):
     newline = translate_word(lines.PSIF,lines.PYIF,newline)
     newline = translate_word(lines.PSWHILE,lines.PYWHILE,newline)
     newline = translate_word(lines.PSELSE,lines.PYELSE,newline)
+    newline = checkrepeat(newline)
     newline = translate_word(lines.PSREPEAT,lines.PYREPEAT,newline)
     newline = translate_word(lines.PSTHEN,lines.PYTHEN,newline)
     newline = translate_word(lines.PSCOMMENT,lines.PYCOMMENT,newline)
@@ -51,6 +79,9 @@ def translate_line(line):
     newline = translate_word(lines.PSFALSE,lines.PYFALSE,newline)
     newline = translate_word(lines.PSSTR,lines.PYSTR,newline)
     newline = translate_word(lines.PSINT,lines.PYINT,newline)
+    newline = translate_word(lines.PSCONSTANT,lines.PYCONSTANT,newline)
+    newline = translate_word(lines.PSQUOTEMARK,lines.PYQUOTEMARK,newline)
+    newline = translate_word(lines.PSMINUS,lines.PYMINUS,newline)
 
     omgquote = True
     for i in newline:
@@ -66,13 +97,12 @@ def translate_line(line):
     return result
 
 def convert(all_lines):
-    global newfile
+    global newfile,currentlineindex
+    currentlineindex = 0
     for line in all_lines:
+        currentlineindex += 1
         newfile += translate_line(line) + "\n"
 
-
-def main():
-    pass
 
 def parsedatafromfile():
     global length,lineamt
@@ -84,8 +114,6 @@ def writefinish():
     with open(f"converted/{newfilename}","w",encoding="utf-8") as f:
         f.write(newfile)
 
-if __name__ == "__main__":
-    main()
 loadfile()
 parsedatafromfile()
 print(f"length: {length}")
@@ -93,3 +121,5 @@ print(f"lineamt: {lineamt}")
 
 convert(all_lines)
 writefinish()
+if debug:
+    print(newfile)

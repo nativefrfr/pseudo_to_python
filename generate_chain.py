@@ -1,4 +1,4 @@
-import pseudo_to_python.lines as lines
+import lines as lines
 
 for name in vars(lines):
     if name.startswith("PS"):
